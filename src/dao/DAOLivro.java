@@ -5,7 +5,10 @@ import bd.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Livro;
@@ -42,30 +45,52 @@ public class DAOLivro {
         }
     }
     
-    public static void listar(){
-        
+    public static List<Livro> listar(){
         Connection con = ConnectionFactory.getConnection(); 
         final String SQL = "SELECT * FROM LIVRO";
+        List<Livro> listaLivros = new ArrayList();
+        
         try{ 
             PreparedStatement stmt = con.prepareStatement(SQL);
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
-                rs.getString("nome");
+                Livro livro = new Livro();
+                livro.setCodigo(rs.getInt("codigo"));
+                livro.setNome(rs.getString("nome"));
+                livro.setAutor(rs.getString("autor"));
+                livro.setEditora(rs.getString("editora"));
+                livro.setEdicao(rs.getString("edicao"));
+                livro.setAnoPublicacao(rs.getInt("anoPublicacao"));
+                
+                listaLivros.add(livro);
             }
-            //stmt.execute(); 
+            
+            
+            
+            /*
+            System.out.println("Codigo\tNome\tAutor\tEditora\tEdição\tAno de Publicação");
+            while(rs.next()){
+                ResultSetMetaData rsmd = rs.getMetaData();
+                for(int i = 1; i <= rsmd.getColumnCount() ; i++){
+                    System.out.print(rs.getString(i)+"  ");
+                }
+                System.out.println("");
+            }
+            */
+            
         }
         catch(SQLException e){
             throw new RuntimeException("Não foi possivel listar na tabela livro\n"+ e);
         }
         finally{
             try {
-                System.out.println("Foi listado com sucesso");
                 con.close();
             } catch (SQLException ex) {
                 throw new RuntimeException("Não a conexão não foi fechada! ");
             }
-        }    
+        }   
+        return listaLivros;
     }
     
 }

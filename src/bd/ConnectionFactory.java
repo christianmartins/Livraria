@@ -21,12 +21,12 @@ public class ConnectionFactory {
              
         try{  
             try {
-                System.out.println(new File("src/jdbc/livraria").getCanonicalPath());
+                //System.out.println(new File("src/jdbc/livraria").getCanonicalPath());
                 URL = "jdbc:sqlite:"+ new File("src/jdbc/livraria").getCanonicalPath();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("Conectou com sucesso!");   
+            //System.out.println("Conectou com sucesso!");   
             return DriverManager.getConnection(URL, USUARIO, SENHA);
         }
         catch(SQLException ex){

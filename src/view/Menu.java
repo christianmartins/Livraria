@@ -43,17 +43,18 @@ public class Menu {
     }
     
     public static void iniciarMenu(){
+        DAOLivro dao = new DAOLivro();
         switch(pegarOpcoes()){
             case 1: 
-                Livro livro = new Livro();
-                livro.setNome("Pudim Landy");
-                livro.setAutor("Leonardo");
-                livro.setEdicao("Piorou");
-                livro.setEditora("Não sei");
-                livro.setAnoPublicacao(2000);
-                
-                DAOLivro dao = new DAOLivro();
-                dao.inserir(livro);
+//                Livro livro = new Livro();
+//                livro.setNome("Pudim Landy");
+//                livro.setAutor("Leonardo");
+//                livro.setEdicao("Piorou");
+//                livro.setEditora("Não sei");
+//                livro.setAnoPublicacao(2000);
+//                
+//               
+//                dao.inserir(livro);
                 
                 
                 
@@ -61,6 +62,13 @@ public class Menu {
                 break;
             case 2:
                 System.out.println("Consulta");
+                System.out.println("Codigo\tNome\t\tAutor\t\t");
+                for(Livro l : DAOLivro.listar()){
+                    System.out.print(l.getCodigo() + "\t");
+                    System.out.print(l.getNome() + "\t");
+                    System.out.println(l.getAutor() + "\t");
+                }
+                
                 break;
             case 3: 
                 System.out.println("Altera");
