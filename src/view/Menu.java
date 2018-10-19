@@ -1,11 +1,7 @@
 package view;
 
-import bd.ConnectionFactory;
 import dao.DAOLivro;
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 import model.Livro;
 
 public class Menu {
